@@ -1,6 +1,7 @@
 import React from 'react'
 
-const Dashboard = () => {
+
+const Logs = () => {
   return (
     <>
     <div>
@@ -10,4 +11,4 @@ const Dashboard = () => {
   )
 }
 
-export default Dashboard
+export default Logs

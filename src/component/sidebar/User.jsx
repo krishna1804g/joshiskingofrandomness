@@ -91,7 +91,9 @@ export default function User({ open, setOpen }) {
                         {theme.direction === 'rtl' ? <ChevronRightIcon /> : ""}
                     </IconButton>
                 </DrawerHeader>
-                <List sx={{ backgroundColor: "rgb(252 211 77)", height: "100vh" }}>
+                <div className='flex flex-col justify-between'>
+                    
+                <List sx={{ backgroundColor: "rgb(252 211 77)", height: "85vh" }}>
                     <Link to="/dashboard">
                         <ListItem disablePadding sx={{ display: 'block' }}>
                             <ListItemButton
@@ -231,7 +233,12 @@ export default function User({ open, setOpen }) {
                             </ListItemButton>
                         </ListItem>
                     </Link>
+
                 </List>
+                <div className='bg-amber-300 h-[6.8vh] text-white font-bold text-center flex justify-center items-center cursor-pointer hover:bg-amber-300/90'>
+                    Contact Us
+                </div>
+                </div>
             </Drawer>
             <Box component="main" sx={{ flexGrow: 1, overflow: "hidden", overflowY: "auto"}}>
                 <Box sx={{mt:"80px"}}>

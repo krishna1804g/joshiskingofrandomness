@@ -53,7 +53,7 @@ function stringAvatar(name) {
     };
 }
 
-export default function AfterLoginNavbar({ open, setOpen }) {
+export default function AfterAuthNavbar({ open, setOpen }) {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const user = {}
     const notification = 0
@@ -119,7 +119,7 @@ export default function AfterLoginNavbar({ open, setOpen }) {
             <MenuItem onClick={() => {
                 sessionStorage.clear()
                 localStorage.clear()
-                navigate("/login")
+                navigate("/Auth")
             }}>
                 <LogoutIcon color="error" />
                 <p>Logout</p>
@@ -173,7 +173,7 @@ export default function AfterLoginNavbar({ open, setOpen }) {
             <MenuItem onClick={() => {
                 sessionStorage.clear()
                 localStorage.clear()
-                navigate("/login")
+                navigate("/Auth")
             }}>
                 <IconButton size="large" aria-label="show 4 new mails" color="inherit">
                     <LogoutIcon color="error" />

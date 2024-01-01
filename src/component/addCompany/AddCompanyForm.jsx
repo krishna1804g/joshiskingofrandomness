@@ -2,11 +2,12 @@ import React from 'react'
 import { Button, TextField } from '@mui/material'
 import { useForm } from 'react-hook-form'
 
-const AddCompanyForm = () => {
+const AddCompanyForm = ({apiSuccess,setApiSuccess}) => {
     const { register, handleSubmit, formState: { errors }, reset } = useForm({ mode: 'all' })
 
     const handleAddCompany = (data) => {
         sessionStorage.setItem("cName", data.name)
+        setApiSuccess(!apiSuccess)
         reset()
     }
 
