@@ -50,25 +50,6 @@ const SignInForm = () => {
                         <div className='relative'>
                             <Link to="/forgotPassword"><h1 className="absolute -top-4 right-0 text-[#EB3434] text-center hover:underline">Forgot Password?</h1></Link>
                         </div>
-                        <div className='mt-4'>
-                            <h6 className='text-[14px] text-gray-600 pb-2'>Account type</h6>
-                            <ToggleButtonGroup
-                                color="warning"
-                                value={alignment}
-                                exclusive
-                                variant="contained"
-                                onChange={(e) => setAlignment(e.target.value)}
-                                aria-label="Account Type"
-                                aria-labelledby="account-type-label"
-                            >
-                                <ToggleButton value="business" sx={{ color: 'black' }}>
-                                    Business
-                                </ToggleButton>
-                                <ToggleButton value="downloadPackage" sx={{ color: 'black' }}>
-                                    Download Package
-                                </ToggleButton>
-                            </ToggleButtonGroup>
-                        </div>
                     </div>
                     <div className='sm:w-[60%]'>
 

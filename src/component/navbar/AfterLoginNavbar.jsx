@@ -20,6 +20,7 @@ import Logo from '../../assets/Logo';
 const AppBar = styled(MuiAppBar, {
 })(({ theme }) => ({
     zIndex: theme.zIndex.drawer + 1,
+    boxShadow: 'none', 
 }));
 
 
@@ -49,7 +50,7 @@ function stringAvatar(name) {
         sx: {
             bgcolor: stringToColor(name),
         },
-        children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
+        children: `${name.split(' ')[0][0]}`,
     };
 }
 
@@ -107,10 +108,10 @@ export default function AfterAuthNavbar({ open, setOpen }) {
                 <div className='flex gap-3 items-center justify-center'>
                     <div>
                         <Avatar id="profile" className='uppercase' sx={{ width: 70, height: 70 }}
-                            {...stringAvatar(sessionStorage.getItem('fName') + " " + sessionStorage.getItem('lName'))} />
+                            {...stringAvatar(sessionStorage.getItem('cName'))} />
                     </div>
                     <div>
-                        <p className='text-[18px]'>{sessionStorage.getItem('fName')}{` ${sessionStorage.getItem('lName')}`}</p>
+                        <p className='text-[18px]'>{sessionStorage.getItem('cName')}</p>
 
                     </div>
                 </div>
@@ -166,7 +167,7 @@ export default function AfterAuthNavbar({ open, setOpen }) {
                     color="inherit"
                 >
                     <Avatar id="profile" className='uppercase' sx={{ width: 90, height: 90 }}
-                        {...stringAvatar(sessionStorage.getItem('fName') + " " + sessionStorage.getItem('lName'))} />
+                        {...stringAvatar(sessionStorage.getItem('cName'))} />
                 </IconButton>
                 <p>Profile</p>
             </MenuItem>
@@ -185,7 +186,7 @@ export default function AfterAuthNavbar({ open, setOpen }) {
 
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="fixed" sx={{ bgcolor: "rgb(255 251 235)", backdropFilter: isMdScreen ? "" : 'blur(10px)', color: "#26496E" }}>
+            <AppBar position="fixed" sx={{ bgcolor: "white", backdropFilter: isMdScreen ? "" : 'blur(10px)', color: "#26496E" }}>
                 <Toolbar>
                     <IconButton
                         size="large"
@@ -228,7 +229,7 @@ export default function AfterAuthNavbar({ open, setOpen }) {
                             color="inherit"
                         >
                             <Avatar id="profile" className='uppercase' sx={{ width: 90, height: 90 }}
-                                {...stringAvatar(sessionStorage.getItem('fName') + " " + sessionStorage.getItem("lName"))} />
+                                {...stringAvatar(sessionStorage.getItem('cName'))} />
                         </IconButton>
                     </Box>
                     <Box sx={{ display: { xs: 'flex', md: 'none' } }}>

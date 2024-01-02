@@ -3,7 +3,7 @@ import React from 'react'
 const NoPage = () => {
     return (
         <>
-            <div className='flex justify-center h-[100vh] bg-amber-50 items-center'>
+            <div className='flex justify-center h-[100vh] bg-amber-100 items-center'>
                 <div>
 
                 </div>

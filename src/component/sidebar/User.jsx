@@ -14,6 +14,7 @@ import { Link, Outlet, useLocation } from 'react-router-dom';
 import DescriptionIcon from '@mui/icons-material/Description';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import { Tooltip } from '@mui/material';
+import { ContactSupport } from '@mui/icons-material';
 
 
 const drawerWidth = 270;
@@ -55,7 +56,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
         width: drawerWidth,
         flexShrink: 0,
         fontFamily: "Lexend Deca, sans-serif",
-        whiteSpace: 'nowrap',
+        graySpace: 'nowrap',
         boxSizing: 'border-box',
         ...(open && {
             ...openedMixin(theme),
@@ -84,25 +85,170 @@ export default function User({ open, setOpen }) {
 
     return (
         <Box sx={{ display: 'flex' }} >
-            <CssBaseline />
             <Drawer variant="permanent" open={open} >
-                <DrawerHeader sx={{ backgroundColor: "rgb(255 251 235)'" }}>
+                <DrawerHeader sx={{ backgroundColor: "white" }}>
                     <IconButton onClick={() => setOpen(!open)}>
                         {theme.direction === 'rtl' ? <ChevronRightIcon /> : ""}
                     </IconButton>
                 </DrawerHeader>
-                <div className='flex flex-col justify-between'>
-                    
-                <List sx={{ backgroundColor: "rgb(252 211 77)", height: "85vh" }}>
-                    <Link to="/dashboard">
+                <div className='flex flex-col justify-between h-full'>
+
+                    <List sx={{ backgroundColor: "white", height: "100%", mx: "10px", display: "flex", flexDirection: "column", gap: "4px", }}>
+                        <Link to="/dashboard">
+                            <ListItem disablePadding sx={{ display: 'block', }}>
+                                <ListItemButton
+                                    sx={{
+                                        minHeight: 48,
+                                        justifyContent: open ? 'initial' : 'center',
+                                        borderRadius: "15px",
+                                        px: 2.5,
+                                        backgroundColor: currentLocation?.includes('/dashboard') && "rgb(254 243 199)",
+                                        color: currentLocation?.includes('/dashboard') && "#000",
+                                    }}
+                                >
+                                    {open ? <ListItemIcon
+                                        sx={{
+                                            minWidth: 0,
+                                            mr: open ? 3 : 'auto',
+                                            justifyContent: 'center',
+
+                                        }}
+                                    >
+                                        <DashboardIcon size={'23px'} sx={{ color: "gray" }} />
+                                    </ListItemIcon> : <Tooltip title={"Dashboard"} placement='right'>
+                                        <ListItemIcon
+                                            sx={{
+                                                minWidth: 0,
+                                                mr: open ? 3 : 'auto',
+                                                justifyContent: 'center',
+                                            }}
+                                        >
+                                            <DashboardIcon size={'23px'} sx={{ color: "gray" }} />
+                                        </ListItemIcon>
+                                    </Tooltip>}
+                                    <ListItemText primary={"Dashboard"} sx={{ opacity: open ? 1 : 0, color: "gray" }} />
+                                </ListItemButton>
+                            </ListItem>
+                        </Link>
+                        <Link to="/logs">
+                            <ListItem disablePadding sx={{ display: 'block' }}>
+                                <ListItemButton
+                                    sx={{
+                                        minHeight: 48,
+                                        justifyContent: open ? 'initial' : 'center',
+                                        borderRadius: "15px",
+                                        px: 2.5,
+                                        backgroundColor: currentLocation?.includes('/logs') && "rgb(254 243 199)",
+                                        color: currentLocation?.includes('/logs') && "#000",
+                                    }}
+                                >
+                                    {open ? <ListItemIcon
+                                        sx={{
+                                            minWidth: 0,
+                                            mr: open ? 3 : 'auto',
+                                            justifyContent: 'center',
+
+                                        }}
+                                    >
+                                        <DashboardIcon size={'23px'} sx={{ color: "gray" }} />
+                                    </ListItemIcon> : <Tooltip title={"Logs"} placement='right'>
+                                        <ListItemIcon
+                                            sx={{
+                                                minWidth: 0,
+                                                mr: open ? 3 : 'auto',
+                                                justifyContent: 'center',
+                                            }}
+                                        >
+                                            <DashboardIcon size={'23px'} sx={{ color: "gray" }} />
+                                        </ListItemIcon>
+                                    </Tooltip>}
+                                    <ListItemText primary={"Logs"} sx={{ opacity: open ? 1 : 0, color: "gray" }} />
+                                </ListItemButton>
+                            </ListItem>
+                        </Link>
+                        <Link to="/active-directory">
+                            <ListItem disablePadding sx={{ display: 'block' }}>
+                                <ListItemButton
+                                    sx={{
+                                        minHeight: 48,
+                                        justifyContent: open ? 'initial' : 'center',
+                                        borderRadius: "15px",
+                                        px: 2.5,
+                                        backgroundColor: currentLocation?.includes('/active-directory') && "rgb(254 243 199)",
+                                        color: currentLocation?.includes('/active-directory') && "#000",
+                                    }}
+                                >
+                                    {open ? <ListItemIcon
+                                        sx={{
+                                            minWidth: 0,
+                                            mr: open ? 3 : 'auto',
+                                            justifyContent: 'center',
+
+                                        }}
+                                    >
+                                        <DashboardIcon size={'23px'} sx={{ color: "gray" }} />
+                                    </ListItemIcon> : <Tooltip title={"Active directory (AD)"} placement='right'>
+                                        <ListItemIcon
+                                            sx={{
+                                                minWidth: 0,
+                                                mr: open ? 3 : 'auto',
+                                                justifyContent: 'center',
+                                            }}
+                                        >
+                                            <DashboardIcon size={'23px'} sx={{ color: "gray" }} />
+                                        </ListItemIcon>
+                                    </Tooltip>}
+                                    <ListItemText primary={"Active directory (AD)"} sx={{ opacity: open ? 1 : 0, color: "gray", whiteSpace: "nowrap" }} />
+                                </ListItemButton>
+                            </ListItem>
+                        </Link>
+                        <Link to="/profile" >
+                            <ListItem disablePadding sx={{ display: 'block' }}>
+                                <ListItemButton
+                                    sx={{
+                                        minHeight: 48,
+                                        justifyContent: open ? 'initial' : 'center',
+                                        borderRadius: "15px",
+                                        px: 2.5,
+                                        backgroundColor: currentLocation?.includes('/profile') && "rgb(254 243 199)"
+                                    }}
+                                >
+                                    {open ? <ListItemIcon
+                                        sx={{
+                                            minWidth: 0,
+                                            mr: open ? 3 : 'auto',
+                                            justifyContent: 'center',
+
+                                        }}
+                                    >
+                                        <DashboardIcon size={'23px'} sx={{ color: "gray" }} />
+                                    </ListItemIcon> : <Tooltip title={"Profile"} placement='right'>
+                                        <ListItemIcon
+                                            sx={{
+                                                minWidth: 0,
+                                                mr: open ? 3 : 'auto',
+                                                justifyContent: 'center',
+                                            }}
+                                        >
+                                            <DashboardIcon size={'23px'} sx={{ color: "gray" }} />
+                                        </ListItemIcon>
+                                    </Tooltip>}
+                                    <ListItemText primary={"Profile"} sx={{ opacity: open ? 1 : 0, color: "gray" }} />
+                                </ListItemButton>
+                            </ListItem>
+                        </Link>
+
+                    </List>
+                    <List sx={{ backgroundColor: "white" }}>
                         <ListItem disablePadding sx={{ display: 'block' }}>
                             <ListItemButton
                                 sx={{
                                     minHeight: 48,
                                     justifyContent: open ? 'initial' : 'center',
+                                    borderRadius: "15px",
                                     px: 2.5,
-                                    backgroundColor: currentLocation?.includes('/dashboard') && "rgb(245 158 11)",
-                                    color: currentLocation?.includes('/dashboard') && "#000",
+                                    backgroundColor: currentLocation?.includes('/contact-us') && "rgb(254 243 199)",
+                                    color: currentLocation?.includes('/contact-us') && "#000",
                                 }}
                             >
                                 {open ? <ListItemIcon
@@ -113,8 +259,8 @@ export default function User({ open, setOpen }) {
 
                                     }}
                                 >
-                                    <DashboardIcon size={'23px'} sx={{ color: "white" }} />
-                                </ListItemIcon> : <Tooltip title={"Dashboard"} placement='right'>
+                                    <ContactSupport size={'23px'} sx={{ color: "gray" }} />
+                                </ListItemIcon> : <Tooltip title={"Contact Us"} placement='right'>
                                     <ListItemIcon
                                         sx={{
                                             minWidth: 0,
@@ -122,126 +268,17 @@ export default function User({ open, setOpen }) {
                                             justifyContent: 'center',
                                         }}
                                     >
-                                        <DashboardIcon size={'23px'} sx={{ color: "white" }} />
+                                        <ContactSupport size={'23px'} sx={{ color: "gray" }} />
                                     </ListItemIcon>
                                 </Tooltip>}
-                                <ListItemText primary={"Dashboard"} sx={{ opacity: open ? 1 : 0, color: "white" }} />
+                                <ListItemText primary={"Contact Us"} sx={{ opacity: open ? 1 : 0, color: "gray", whiteSpace: "nowrap" }} />
                             </ListItemButton>
                         </ListItem>
-                    </Link>
-                    <Link to="/logs">
-                        <ListItem disablePadding sx={{ display: 'block' }}>
-                            <ListItemButton
-                                sx={{
-                                    minHeight: 48,
-                                    justifyContent: open ? 'initial' : 'center',
-                                    px: 2.5,
-                                    backgroundColor: currentLocation?.includes('/logs') && "rgb(245 158 11)",
-                                    color: currentLocation?.includes('/logs') && "#000",
-                                }}
-                            >
-                                {open ? <ListItemIcon
-                                    sx={{
-                                        minWidth: 0,
-                                        mr: open ? 3 : 'auto',
-                                        justifyContent: 'center',
-
-                                    }}
-                                >
-                                    <DashboardIcon size={'23px'} sx={{ color: "white" }} />
-                                </ListItemIcon> : <Tooltip title={"Logs"} placement='right'>
-                                    <ListItemIcon
-                                        sx={{
-                                            minWidth: 0,
-                                            mr: open ? 3 : 'auto',
-                                            justifyContent: 'center',
-                                        }}
-                                    >
-                                        <DashboardIcon size={'23px'} sx={{ color: "white" }} />
-                                    </ListItemIcon>
-                                </Tooltip>}
-                                <ListItemText primary={"Logs"} sx={{ opacity: open ? 1 : 0, color: "white" }} />
-                            </ListItemButton>
-                        </ListItem>
-                    </Link>
-                    <Link to="/active-directory">
-                        <ListItem disablePadding sx={{ display: 'block' }}>
-                            <ListItemButton
-                                sx={{
-                                    minHeight: 48,
-                                    justifyContent: open ? 'initial' : 'center',
-                                    px: 2.5,
-                                    backgroundColor: currentLocation?.includes('/active-directory') && "rgb(245 158 11)",
-                                    color: currentLocation?.includes('/active-directory') && "#000",
-                                }}
-                            >
-                                {open ? <ListItemIcon
-                                    sx={{
-                                        minWidth: 0,
-                                        mr: open ? 3 : 'auto',
-                                        justifyContent: 'center',
-
-                                    }}
-                                >
-                                    <DashboardIcon size={'23px'} sx={{ color: "white" }} />
-                                </ListItemIcon> : <Tooltip title={"Active directory (AD)"} placement='right'>
-                                    <ListItemIcon
-                                        sx={{
-                                            minWidth: 0,
-                                            mr: open ? 3 : 'auto',
-                                            justifyContent: 'center',
-                                        }}
-                                    >
-                                        <DashboardIcon size={'23px'} sx={{ color: "white" }} />
-                                    </ListItemIcon>
-                                </Tooltip>}
-                                <ListItemText primary={"Active directory (AD)"} sx={{ opacity: open ? 1 : 0, color: "white" }} />
-                            </ListItemButton>
-                        </ListItem>
-                    </Link>
-                    <Link to="/profile" >
-                        <ListItem disablePadding sx={{ display: 'block' }}>
-                            <ListItemButton
-                                sx={{
-                                    minHeight: 48,
-                                    justifyContent: open ? 'initial' : 'center',
-                                    px: 2.5,
-                                    backgroundColor: currentLocation?.includes('/profile') && "rgb(245 158 11)"
-                                }}
-                            >
-                                {open ? <ListItemIcon
-                                    sx={{
-                                        minWidth: 0,
-                                        mr: open ? 3 : 'auto',
-                                        justifyContent: 'center',
-
-                                    }}
-                                >
-                                    <DashboardIcon size={'23px'} sx={{ color: "white" }} />
-                                </ListItemIcon> : <Tooltip title={"Profile"} placement='right'>
-                                    <ListItemIcon
-                                        sx={{
-                                            minWidth: 0,
-                                            mr: open ? 3 : 'auto',
-                                            justifyContent: 'center',
-                                        }}
-                                    >
-                                        <DashboardIcon size={'23px'} sx={{ color: "white" }} />
-                                    </ListItemIcon>
-                                </Tooltip>}
-                                <ListItemText primary={"Profile"} sx={{ opacity: open ? 1 : 0, color: "white" }} />
-                            </ListItemButton>
-                        </ListItem>
-                    </Link>
-
-                </List>
-                <div className='bg-amber-300 h-[6.8vh] text-white font-bold text-center flex justify-center items-center cursor-pointer hover:bg-amber-300/90'>
-                    Contact Us
-                </div>
+                    </List>
                 </div>
             </Drawer>
-            <Box component="main" sx={{ flexGrow: 1, overflow: "hidden", overflowY: "auto"}}>
-                <Box sx={{mt:"80px"}}>
+            <Box component="main" sx={{ flexGrow: 1, overflow: "hidden", mt: "65px", pt: "10px", overflowY: "auto", bgcolor: "#f0f0f1", height: "100vh" }}>
+                <Box sx={{ mx: "20px",mt:"10px", bgcolor: "white", borderRadius: "20px" }}>
                     <Outlet />
                 </Box>
 
