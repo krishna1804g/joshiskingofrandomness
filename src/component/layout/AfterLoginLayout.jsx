@@ -6,7 +6,7 @@ import User from '../sidebar/User'
 const AfterLoginLayout = () => {
     const [role, setRole] = useState()
     const [user, setUser] = useState()
-    const [open, setOpen] = useState(true)
+    const [open, setOpen] = useState(false)
 
     useEffect(() => {
         setUser(sessionStorage.getItem("uid"))

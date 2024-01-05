@@ -1,14 +1,38 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Button, TextField } from '@mui/material'
 import { useForm } from 'react-hook-form'
+import axios from 'axios'
+import { SERVER } from '../../config/api'
+import { toast } from 'react-toastify'
 
-const AddCompanyForm = ({apiSuccess,setApiSuccess}) => {
+const AddCompanyForm = ({ apiSuccess, setApiSuccess }) => {
     const { register, handleSubmit, formState: { errors }, reset } = useForm({ mode: 'all' })
+    const [loading, setLoading] = useState(false)
 
     const handleAddCompany = (data) => {
-        sessionStorage.setItem("cName", data.name)
-        setApiSuccess(!apiSuccess)
-        reset()
+        setLoading(true)
+        axios
+            .post(`${SERVER}/company/`, {
+                name: data.name,
+                phone: data.phone,
+                about: data.about,
+                address: data.address,
+                userId: Number(sessionStorage.getItem("userId"))
+            }).then((res) => {
+                setLoading(false)
+                setApiSuccess(!apiSuccess)
+                sessionStorage.setItem("cId", res.data.company.id)
+                sessionStorage.setItem("cName", res.data.company.name)
+                sessionStorage.setItem(res.data.company.id)
+                toast.success("Company created successfully")
+                reset()
+            }).catch((err) => {
+                toast.error(err.response.data.error)
+                setLoading(false)
+                console.log(err)
+            })
+
+
     }
 
     return (

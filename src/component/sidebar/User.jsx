@@ -91,11 +91,11 @@ export default function User({ open, setOpen }) {
                         {theme.direction === 'rtl' ? <ChevronRightIcon /> : ""}
                     </IconButton>
                 </DrawerHeader>
-                <div className='flex flex-col justify-between h-full'>
+                <div className={`flex flex-col justify-between h-full`}>
 
                     <List sx={{ backgroundColor: "white", height: "100%", mx: "10px", display: "flex", flexDirection: "column", gap: "4px", }}>
                         <Link to="/dashboard">
-                            <ListItem disablePadding sx={{ display: 'block', }}>
+                            <ListItem disablePadding sx={{ display: 'block', }} onClick={()=>setOpen(false)}>
                                 <ListItemButton
                                     sx={{
                                         minHeight: 48,
@@ -122,6 +122,7 @@ export default function User({ open, setOpen }) {
                                                 mr: open ? 3 : 'auto',
                                                 justifyContent: 'center',
                                             }}
+                                            
                                         >
                                             <DashboardIcon size={'23px'} sx={{ color: "gray" }} />
                                         </ListItemIcon>
@@ -131,7 +132,7 @@ export default function User({ open, setOpen }) {
                             </ListItem>
                         </Link>
                         <Link to="/logs">
-                            <ListItem disablePadding sx={{ display: 'block' }}>
+                            <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>setOpen(false)}>
                                 <ListItemButton
                                     sx={{
                                         minHeight: 48,
@@ -166,16 +167,16 @@ export default function User({ open, setOpen }) {
                                 </ListItemButton>
                             </ListItem>
                         </Link>
-                        <Link to="/active-directory">
-                            <ListItem disablePadding sx={{ display: 'block' }}>
+                        <Link to="/domains" >
+                            <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>setOpen(false)}>
                                 <ListItemButton
                                     sx={{
                                         minHeight: 48,
                                         justifyContent: open ? 'initial' : 'center',
                                         borderRadius: "15px",
                                         px: 2.5,
-                                        backgroundColor: currentLocation?.includes('/active-directory') && "rgb(254 243 199)",
-                                        color: currentLocation?.includes('/active-directory') && "#000",
+                                        backgroundColor: currentLocation?.includes('/domains') && "rgb(254 243 199)",
+                                        color: currentLocation?.includes('/domains') && "#000",
                                     }}
                                 >
                                     {open ? <ListItemIcon
@@ -187,7 +188,7 @@ export default function User({ open, setOpen }) {
                                         }}
                                     >
                                         <DashboardIcon size={'23px'} sx={{ color: "gray" }} />
-                                    </ListItemIcon> : <Tooltip title={"Active directory (AD)"} placement='right'>
+                                    </ListItemIcon> : <Tooltip title={"Domains"} placement='right'>
                                         <ListItemIcon
                                             sx={{
                                                 minWidth: 0,
@@ -198,12 +199,12 @@ export default function User({ open, setOpen }) {
                                             <DashboardIcon size={'23px'} sx={{ color: "gray" }} />
                                         </ListItemIcon>
                                     </Tooltip>}
-                                    <ListItemText primary={"Active directory (AD)"} sx={{ opacity: open ? 1 : 0, color: "gray", whiteSpace: "nowrap" }} />
+                                    <ListItemText primary={"Domains"} sx={{ opacity: open ? 1 : 0, color: "gray", whiteSpace: "nowrap" }} />
                                 </ListItemButton>
                             </ListItem>
                         </Link>
                         <Link to="/profile" >
-                            <ListItem disablePadding sx={{ display: 'block' }}>
+                            <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>setOpen(false)}>
                                 <ListItemButton
                                     sx={{
                                         minHeight: 48,

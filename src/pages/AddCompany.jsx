@@ -8,10 +8,11 @@ const AddCompany = () => {
     const [companyName, setCompanyName] = useState(sessionStorage.getItem('cName'))
     const [apiSuccess, setApiSuccess] = useState(false)
 
-    useEffect(()=>{
+    useEffect(() => {
         setCompanyName(sessionStorage.getItem("cName"))
-    })
+    },[apiSuccess])
 
+    console.log(companyName === 'null')
 
     return (
         <>
@@ -19,7 +20,7 @@ const AddCompany = () => {
                 <div className='py-10 flex flex-col items-center text-5xl'>
                     <Logo />
                 </div>
-                {companyName ? <CloudDirectoryList /> : <AddCompanyForm apiSuccess={apiSuccess} setApiSuccess={setApiSuccess}/>
+                {!(companyName === 'null') ? <CloudDirectoryList /> : <AddCompanyForm apiSuccess={apiSuccess} setApiSuccess={setApiSuccess} />
                 }
             </div>
         </>

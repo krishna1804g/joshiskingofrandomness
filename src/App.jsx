@@ -19,7 +19,7 @@ function App() {
         <Route path='/' element={<AfterLoginLayout />}>
           <Route path='/dashboard' index element={<Dashboard />} />
           <Route path='/logs' index element={<Logs />} />
-          <Route path='/active-directory' index element={<ActiveDirectory />} />
+          <Route path='/domains' index element={<ActiveDirectory />} />
           <Route path='/profile' index element={<Profile />} />
         </Route>
       </Routes>

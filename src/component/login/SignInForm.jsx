@@ -1,33 +1,89 @@
 import React, { useState } from 'react'
-import { Button, TextField, ToggleButton, ToggleButtonGroup } from '@mui/material'
+import { Button, TextField } from '@mui/material'
 import { useForm } from 'react-hook-form'
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { toast } from 'react-toastify';
 import { Link, useNavigate } from 'react-router-dom';
+import { SERVER } from '../../config/api';
+import axios from 'axios';
 
 
 const SignInForm = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm({ mode: 'all' })
+    const { register, handleSubmit, getValues, formState: { errors } } = useForm({ mode: 'all' })
     const [showPassword, setShowPassword] = useState(false)
     const [loading, setLoading] = useState(false)
-    const [alignment, setAlignment] = useState('downloadPackage')
+    const [otpOpen, setOtpOpen] = useState(false)
+    const [user, setUser] = useState()
     const navigate = useNavigate()
 
     const handleSignUp = (data) => {
-        if (alignment === "downloadPackage") {
-            toast.success("Package downloaded successfully")
-        } else {
-            navigate('/add-company')
+        setLoading(true)
+        axios
+            .post(`${SERVER}/user/signIn`, {
+                email: data.email,
+                password: data.password
+            })
+            .then((res) => {
+                setLoading(false)
+                let userData = res.data.data
+                sessionStorage.setItem("token", userData.sessionID)
+                sessionStorage.setItem("userId", userData.id)
+                sessionStorage.setItem("cId", userData.company.id)
+                sessionStorage.setItem("cName", userData.company.name)
+                setUser(userData)
+                if (userData?.isEmailVerified === 0) {
+                    toast.success("OTP sent your email")
+                    setOtpOpen(true)
+                } else if (!userData.company.id) {
+                    navigate('/add-company')
+                } else if (!userData.domains === 0) {
+                    navigate('/add-company')
+                } else {
+                    navigate('/dashboard')
+                }
+            }).catch((err) => {
+                toast.error(err.response.data.error)
+                setLoading(false)
+                console.log(err)
+            })
+    }
 
-            console.log(data)
-        }
+    const handleVerify = (data) => {
+        setLoading(true)
+        axios
+            .post(`${SERVER}/user/verifyOtp`, {
+                email: data.email,
+                otp: data.otp
+            })
+            .then((res) => {
+                setLoading(false)
+                console.log(res.data)
+                let userData = res.data.data
+                sessionStorage.setItem("token", userData.sessionID)
+                sessionStorage.setItem("userId", userData.id)
+                sessionStorage.setItem("cId", userData.company.id)
+                sessionStorage.setItem("cName", userData.company.name)
+                setUser(userData)
+                toast.success("Account verified successfully")
+                if (!userData.company.id) {
+                    navigate('/add-company')
+                } else if (!userData.domains === 0) {
+                    navigate('/add-company')
+                } else {
+                    navigate('/dashboard')
+                }
+            }).catch((err) => {
+                toast.error(err.response.data.error)
+                setLoading(false)
+                console.log(err)
+            })
     }
 
     return (
         <>
             <div className='sm:ring-[1px] sm:ring-gray-200 shadow-sm sm:shadow-gray-500 md:min-w-[500px] md:min-h-[300px] md:bg-amber-100/20 rounded-xl w-full sm:w-[60%] md:w-[0px] px-4 md:px-6 lg:px-12 py-4 flex flex-col justify-center gap-10 items-center'>
                 <h6 className=' font-semibold text-3xl text-gray-600'>Sign In</h6>
-                <form className='w-full flex gap-6 flex-col' onSubmit={handleSubmit(handleSignUp)}>
+                {user?.isEmailVerified !== 0 ? <form className='w-full flex gap-6 flex-col' onSubmit={handleSubmit(handleSignUp)}>
                     <TextField id="outlined-basic" label="Email" variant="outlined" name='email' sx={{ width: "100%" }}
                         {...register('email', {
                             required: 'Email is required.',
@@ -59,7 +115,24 @@ const SignInForm = () => {
                             },
                         }}>Next</Button>
                     </div>
-                </form>
+                </form> : <form className='w-full flex gap-6 flex-col' onSubmit={handleSubmit(handleVerify)}>
+                    <TextField id="outlined-basic" label="Email" variant="outlined" name='email' sx={{ width: "100%" }}
+                        value={getValues("email")}
+                        disabled
+                    />
+                    <TextField id="outlined-basic1" label="OTP" sx={{ width: "100%" }} variant="outlined" name='otp'
+                        {...register('otp', {
+                            required: 'Otp is required.',
+                        })}
+                        error={!!errors.otp?.message}
+                        helperText={errors.otp?.message ? errors?.otp.message : ""}
+                    />
+                    <Button type='submit' variant="contained" sx={{
+                        width: "100%", py: 2, marginY: "20px", bgcolor: "rgb(245 158 11)", '&:hover': {
+                            bgcolor: 'rgba(245, 158, 11, 0.9)',
+                        },
+                    }}>Verify</Button>
+                </form>}
             </div>
         </>
     )
