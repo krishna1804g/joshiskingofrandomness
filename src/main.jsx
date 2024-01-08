@@ -7,6 +7,9 @@ import 'react-toastify/dist/ReactToastify.css'
 import { BrowserRouter } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify'
 import { ThemeProvider, createMuiTheme } from '@mui/material/styles';
+import { PersistGate } from 'redux-persist/integration/react';
+import { persistor, store } from './redux/storage';
+import { Provider } from 'react-redux';
 
 const theme = createMuiTheme({
   typography: {
@@ -16,11 +19,21 @@ const theme = createMuiTheme({
   }
 });
 
+if (process.env.NODE_ENV === 'production') {
+  console.log = function() {};
+  console.warn = function() {};
+  console.error = function() {};
+}
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <BrowserRouter>
-    <ThemeProvider theme={theme}>
-      <App />
-    </ThemeProvider>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <ThemeProvider theme={theme}>
+          <App />
+        </ThemeProvider>
+      </PersistGate>
+    </Provider>
     <ToastContainer
       position='top-right'
       autoClose={4000}

@@ -15,6 +15,9 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import ContactSupportIcon from '@mui/icons-material/ContactSupport';
 import { Avatar } from '@mui/material';
 import Logo from '../../assets/Logo';
+import { useDispatch, useSelector } from 'react-redux';
+import AddCompany from '../../pages/AddCompany';
+import { clearUser } from '../../redux/slices/userSlice';
 
 
 const AppBar = styled(MuiAppBar, {
@@ -56,7 +59,7 @@ function stringAvatar(name) {
 
 export default function AfterAuthNavbar({ open, setOpen }) {
     const [anchorEl, setAnchorEl] = React.useState(null);
-    const user = {}
+    const user = useSelector((state) => state?.persistedReducer.user);
     const notification = 0
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
     const location = useLocation()
@@ -66,8 +69,7 @@ export default function AfterAuthNavbar({ open, setOpen }) {
     const [drawerOpen, setDrawerOpen] = React.useState(false);
     const theme = useTheme();
     const isMdScreen = theme.breakpoints.up('md');
-
-    console.log(location)
+    const dispatch = useDispatch()
 
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -108,10 +110,10 @@ export default function AfterAuthNavbar({ open, setOpen }) {
                 <div className='flex gap-3 items-center justify-center'>
                     <div>
                         <Avatar id="profile" className='uppercase' sx={{ width: 70, height: 70 }}
-                            {...stringAvatar(sessionStorage.getItem('cName'))} />
+                            {...stringAvatar(user?.company?.name)} />
                     </div>
                     <div>
-                        <p className='text-[18px]'>{sessionStorage.getItem('cName')}</p>
+                        <p className='text-[18px]'>{user?.company?.name}</p>
 
                     </div>
                 </div>
@@ -120,6 +122,7 @@ export default function AfterAuthNavbar({ open, setOpen }) {
             <MenuItem onClick={() => {
                 sessionStorage.clear()
                 localStorage.clear()
+                dispatch(clearUser())
                 navigate("/Auth")
             }}>
                 <LogoutIcon color="error" />
@@ -167,13 +170,14 @@ export default function AfterAuthNavbar({ open, setOpen }) {
                     color="inherit"
                 >
                     <Avatar id="profile" className='uppercase' sx={{ width: 90, height: 90 }}
-                        {...stringAvatar(sessionStorage.getItem('cName'))} />
+                        {...stringAvatar(user?.company?.name)} />
                 </IconButton>
                 <p>Profile</p>
             </MenuItem>
             <MenuItem onClick={() => {
                 sessionStorage.clear()
                 localStorage.clear()
+                dispatch(clearUser())
                 navigate("/Auth")
             }}>
                 <IconButton size="large" aria-label="show 4 new mails" color="inherit">
@@ -229,7 +233,7 @@ export default function AfterAuthNavbar({ open, setOpen }) {
                             color="inherit"
                         >
                             <Avatar id="profile" className='uppercase' sx={{ width: 90, height: 90 }}
-                                {...stringAvatar(sessionStorage.getItem('cName'))} />
+                                {...stringAvatar(user?.company?.name)} />
                         </IconButton>
                     </Box>
                     <Box sx={{ display: { xs: 'flex', md: 'none' } }}>

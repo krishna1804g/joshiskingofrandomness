@@ -1,6 +1,8 @@
 import React from 'react'
+import { useSelector } from 'react-redux';
 
 const verifyOtpModel = () => {
+    const user = useSelector((state) => state?.persistedReducer.user);
     return (
         <>
             <Dialog open={successDialogOpen} >
@@ -11,7 +13,7 @@ const verifyOtpModel = () => {
                     </div>
                     <DialogTitle sx={{ color: "green" }}>Email Sent Successfully !!</DialogTitle>
                     <DialogContent>
-                        <p>We have sent an email to <b>{userEmail}</b> to verify your account.</p>
+                        <p>We have sent an email to <b>{user?.email}</b> to verify your account.</p>
                     </DialogContent>
                 </div>
             </Dialog>

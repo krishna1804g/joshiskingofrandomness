@@ -4,10 +4,14 @@ import { useForm } from 'react-hook-form'
 import axios from 'axios'
 import { SERVER } from '../../config/api'
 import { toast } from 'react-toastify'
+import { useDispatch, useSelector } from 'react-redux'
+import { getUserData } from '../../redux/apiCalls/User/apicalls'
 
 const AddCompanyForm = ({ apiSuccess, setApiSuccess }) => {
     const { register, handleSubmit, formState: { errors }, reset } = useForm({ mode: 'all' })
+    c
     const [loading, setLoading] = useState(false)
+    const dispatch = useDispatch()
 
     const handleAddCompany = (data) => {
         setLoading(true)
@@ -17,14 +21,12 @@ const AddCompanyForm = ({ apiSuccess, setApiSuccess }) => {
                 phone: data.phone,
                 about: data.about,
                 address: data.address,
-                userId: Number(sessionStorage.getItem("userId"))
+                userId: user.id
             }).then((res) => {
                 setLoading(false)
                 setApiSuccess(!apiSuccess)
-                sessionStorage.setItem("cId", res.data.company.id)
-                sessionStorage.setItem("cName", res.data.company.name)
-                sessionStorage.setItem(res.data.company.id)
                 toast.success("Company created successfully")
+                getUserData(dispatch, user?.id)
                 reset()
             }).catch((err) => {
                 toast.error(err.response.data.error)

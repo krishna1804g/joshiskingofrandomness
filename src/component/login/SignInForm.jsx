@@ -6,6 +6,8 @@ import { toast } from 'react-toastify';
 import { Link, useNavigate } from 'react-router-dom';
 import { SERVER } from '../../config/api';
 import axios from 'axios';
+import { useDispatch } from 'react-redux'
+import { setUser } from '../../redux/slices/userSlice';
 
 
 const SignInForm = () => {
@@ -13,8 +15,9 @@ const SignInForm = () => {
     const [showPassword, setShowPassword] = useState(false)
     const [loading, setLoading] = useState(false)
     const [otpOpen, setOtpOpen] = useState(false)
-    const [user, setUser] = useState()
+
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     const handleSignUp = (data) => {
         setLoading(true)
@@ -26,11 +29,7 @@ const SignInForm = () => {
             .then((res) => {
                 setLoading(false)
                 let userData = res.data.data
-                sessionStorage.setItem("token", userData.sessionID)
-                sessionStorage.setItem("userId", userData.id)
-                sessionStorage.setItem("cId", userData.company.id)
-                sessionStorage.setItem("cName", userData.company.name)
-                setUser(userData)
+                dispatch(setUser(userData))
                 if (userData?.isEmailVerified === 0) {
                     toast.success("OTP sent your email")
                     setOtpOpen(true)
@@ -59,11 +58,7 @@ const SignInForm = () => {
                 setLoading(false)
                 console.log(res.data)
                 let userData = res.data.data
-                sessionStorage.setItem("token", userData.sessionID)
-                sessionStorage.setItem("userId", userData.id)
-                sessionStorage.setItem("cId", userData.company.id)
-                sessionStorage.setItem("cName", userData.company.name)
-                setUser(userData)
+                dispatch(setUser(userData))
                 toast.success("Account verified successfully")
                 if (!userData.company.id) {
                     navigate('/add-company')
@@ -83,7 +78,7 @@ const SignInForm = () => {
         <>
             <div className='sm:ring-[1px] sm:ring-gray-200 shadow-sm sm:shadow-gray-500 md:min-w-[500px] md:min-h-[300px] md:bg-amber-100/20 rounded-xl w-full sm:w-[60%] md:w-[0px] px-4 md:px-6 lg:px-12 py-4 flex flex-col justify-center gap-10 items-center'>
                 <h6 className=' font-semibold text-3xl text-gray-600'>Sign In</h6>
-                {user?.isEmailVerified !== 0 ? <form className='w-full flex gap-6 flex-col' onSubmit={handleSubmit(handleSignUp)}>
+                {otpOpen?.isEmailVerified !== 0 ? <form className='w-full flex gap-6 flex-col' onSubmit={handleSubmit(handleSignUp)}>
                     <TextField id="outlined-basic" label="Email" variant="outlined" name='email' sx={{ width: "100%" }}
                         {...register('email', {
                             required: 'Email is required.',
