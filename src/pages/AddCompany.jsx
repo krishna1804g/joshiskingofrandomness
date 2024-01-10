@@ -2,17 +2,20 @@ import React, { useEffect, useState } from 'react'
 import Logo from '../assets/Logo'
 import AddCompanyForm from '../component/addCompany/addCompanyForm'
 import CloudDirectoryList from '../component/addCompany/CloudDirectoryList'
+import { useDispatch, useSelector } from 'react-redux'
+import { getUserData } from '../redux/apiCalls/User/apicalls'
 
 
 const AddCompany = () => {
-    const [companyName, setCompanyName] = useState(sessionStorage.getItem('cName'))
     const [apiSuccess, setApiSuccess] = useState(false)
+    const user = useSelector((state) => state?.persistedReducer.user);
+    const dispatch = useDispatch()
 
-    useEffect(() => {
-        setCompanyName(sessionStorage.getItem("cName"))
-    },[apiSuccess])
+        useEffect(() => {
+            getUserData(dispatch, user?.id)
+        }, [apiSuccess])
 
-    console.log(companyName === 'null')
+
 
     return (
         <>
@@ -20,7 +23,7 @@ const AddCompany = () => {
                 <div className='py-10 flex flex-col items-center text-5xl'>
                     <Logo />
                 </div>
-                {!(companyName === 'null') ? <CloudDirectoryList /> : <AddCompanyForm apiSuccess={apiSuccess} setApiSuccess={setApiSuccess} />
+                {!(user?.company?.name === 'null') ? <CloudDirectoryList /> : <AddCompanyForm apiSuccess={apiSuccess} setApiSuccess={setApiSuccess} />
                 }
             </div>
         </>

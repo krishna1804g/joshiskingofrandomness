@@ -9,7 +9,7 @@ import { getUserData } from '../../redux/apiCalls/User/apicalls'
 
 const AddCompanyForm = ({ apiSuccess, setApiSuccess }) => {
     const { register, handleSubmit, formState: { errors }, reset } = useForm({ mode: 'all' })
-    c
+    const user = useSelector((state) => state?.persistedReducer.user);
     const [loading, setLoading] = useState(false)
     const dispatch = useDispatch()
 
@@ -60,7 +60,7 @@ const AddCompanyForm = ({ apiSuccess, setApiSuccess }) => {
                         {...register('address')}
                     />
                     <TextField id="outlined-basic1" multiline rows={3} maxRows={5} label="About company" variant="outlined" name='description' sx={{ width: "100%", color: "black" }}
-                        {...register('description')}
+                        {...register('about')}
                     />
                     <div className=' mt-6 flex w-full justify-end'>
                         <Button type='submit' variant="contained" sx={{

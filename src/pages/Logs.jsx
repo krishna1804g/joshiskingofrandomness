@@ -1,15 +1,18 @@
 import React from 'react'
-import LogsData from '../component/logs/LogsData'
+import LogsData from '../component/log/LogsData'
 
 
 
 const Logs = () => {
   return (
     <>
-    <div className='flex flex-col justify-start items-start  py-4 '>
-      <h2 className='font-semibold text-lg text-gray-800 px-6'>Logs</h2>
-      <LogsData/>
-    </div>
+      <div className=''>
+        <h2 className='px-6 py-4 font-semibold text-lg text-gray-800 border-b-[0.5px] mb-6'>Logs</h2>
+        {/* <LogsData/> */}
+        <div className='flex justify-center items-center min-h-[75vh]'>
+          <img src="../work-progress.png" alt="coming_soon" className='w-[10%]' />
+        </div>
+      </div>
     </>
   )
 }

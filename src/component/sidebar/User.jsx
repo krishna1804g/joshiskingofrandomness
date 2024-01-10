@@ -278,8 +278,8 @@ export default function User({ open, setOpen }) {
                     </List>
                 </div>
             </Drawer>
-            <Box component="main" sx={{ flexGrow: 1, overflow: "hidden", mt: "65px", pt: "10px", overflowY: "auto", bgcolor: "#f0f0f1", height: "100vh" }}>
-                <Box sx={{ mx: "20px",mt:"10px", bgcolor: "white", borderRadius: "20px" }}>
+            <Box component="main" sx={{ flexGrow: 1, overflow: "hidden", mt: "65px", pt: "10px", overflowY: "auto", bgcolor: "#f0f0f1", height: "91.4vh" }}>
+                <Box sx={{ mx: "20px",my:"10px", bgcolor: "white", borderRadius: "20px"}}>
                     <Outlet />
                 </Box>
 

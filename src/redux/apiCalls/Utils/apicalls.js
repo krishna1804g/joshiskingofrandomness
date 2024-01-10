@@ -1,11 +1,11 @@
 import axios from "axios"
 import { SERVER } from "../../../config/api"
-import { getUser } from "../../slices/userSlice"
+import { getUtils } from "../../slices/utilsSlice"
 
-export const getUserData = async (dispatch,id) => {
+export const getUtilsData = async (dispatch,name) => {
     try {
-        const res = await axios.get(`${SERVER}/user/get?id=${id}`)
-        dispatch(getUser(res.data.user))
+        const res = await axios.get(`${SERVER}/utils?check=${name}`)
+        dispatch(getUtils(res.data.utils))
     } catch (err) {
         console.log(err)
         if (err.code === 'ERR_NETWORK') {
