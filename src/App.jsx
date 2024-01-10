@@ -9,8 +9,9 @@ import Profile from './pages/Profile'
 import NoPage from './pages/NoPage'
 import SignUp from './pages/SignUp'
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { getUtilsData } from './redux/apiCalls/Utils/apicalls'
+import { toast } from 'react-toastify'
 
 function App() {
   const utils = useSelector((state) => state.utils)
@@ -20,13 +21,42 @@ function App() {
     getUtilsData(dispatch, 'signup')
   }, [])
 
+  const [isOnline, setIsOnline] = useState(
+    localStorage.getItem('isOnline') === 'true' ? true : navigator.onLine
+  );
+
+  useEffect(() => {
+    const handleOnlineStatusChange = () => {
+      setIsOnline(navigator.onLine);
+
+      if (!navigator.onLine) {
+        // Show toast when internet disconnects
+        toast.error('Internet disconnected');
+      }
+
+      if (navigator.onLine) {
+        // Reload the page when the internet reconnects
+        window.location.reload();
+      }
+    };
+
+    // Listen for online and offline events
+    window.addEventListener('online', handleOnlineStatusChange);
+    window.addEventListener('offline', handleOnlineStatusChange);
+
+    return () => {
+      // Cleanup: Remove event listeners
+      window.removeEventListener('online', handleOnlineStatusChange);
+      window.removeEventListener('offline', handleOnlineStatusChange);
+    };
+  }, []);
   //console.log(utils?.utils?.toggle)
 
   return (
     <>
       <Routes>
         <Route path='/Auth' index element={<SignIn />} />
-        {utils?.utils?.toggle && <Route path='/signup'  element={<SignUp />} />}
+        {utils?.utils?.toggle && <Route path='/signup' element={<SignUp />} />}
         <Route path='/*' index element={<NoPage />} />
         <Route path='/add-company' index element={<AddCompany />} />
         <Route path='/' element={<AfterLoginLayout />}>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button, TextField } from '@mui/material'
-import { useForm } from 'react-hook-form'
+import { set, useForm } from 'react-hook-form'
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { toast } from 'react-toastify';
 import { Link, useNavigate } from 'react-router-dom';
@@ -8,6 +8,7 @@ import { SERVER } from '../../config/api';
 import axios from 'axios';
 import { useDispatch } from 'react-redux'
 import { setUser } from '../../redux/slices/userSlice';
+import ForgotPassword from './ForgotPassword';
 
 
 const SignInForm = () => {
@@ -15,6 +16,7 @@ const SignInForm = () => {
     const [showPassword, setShowPassword] = useState(false)
     const [loading, setLoading] = useState(false)
     const [otpOpen, setOtpOpen] = useState(false)
+    const [successDialogOpen, setSuccessDialogOpen] = useState(false)
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -99,7 +101,7 @@ const SignInForm = () => {
                             {showPassword ? <VisibilityOff /> : <Visibility />}
                         </div>
                         <div className='relative'>
-                            <Link to="/forgotPassword"><h1 className="absolute -top-4 right-0 text-[#EB3434] text-center hover:underline">Forgot Password?</h1></Link>
+                            <h1 className="absolute -top-4 right-0 text-[#EB3434] text-center hover:underline" onClick={() => setSuccessDialogOpen(true)}>Forgot Password?</h1>
                         </div>
                     </div>
                     <div className='sm:w-[60%]'>
@@ -128,6 +130,7 @@ const SignInForm = () => {
                         },
                     }}>Verify</Button>
                 </form>}
+                <ForgotPassword successDialogOpen={successDialogOpen} setSuccessDialogOpen={setSuccessDialogOpen} />
             </div>
         </>
     )
