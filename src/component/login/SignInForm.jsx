@@ -80,7 +80,7 @@ const SignInForm = () => {
         <>
             <div className='sm:ring-[1px] sm:ring-gray-200 shadow-sm sm:shadow-gray-500 md:min-w-[500px] md:min-h-[300px] md:bg-amber-100/20 rounded-xl w-full sm:w-[60%] md:w-[0px] px-4 md:px-6 lg:px-12 py-4 flex flex-col justify-center gap-10 items-center'>
                 <h6 className=' font-semibold text-3xl text-gray-600'>Sign In</h6>
-                {otpOpen?.isEmailVerified !== 0 ? <form className='w-full flex gap-6 flex-col' onSubmit={handleSubmit(handleSignUp)}>
+                {!otpOpen ? <form className='w-full flex gap-6 flex-col' onSubmit={handleSubmit(handleSignUp)}>
                     <TextField id="outlined-basic" label="Email" variant="outlined" name='email' sx={{ width: "100%" }}
                         {...register('email', {
                             required: 'Email is required.',

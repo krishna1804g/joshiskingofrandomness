@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { SERVER } from '../../config/api'
 import { useSelector } from 'react-redux'
+import { toast } from 'react-toastify'
 
 const DomainAdd = ({ setApiSuccess, apiSuccess, setAddDomain }) => {
     const [selectedAd, setSelectedAd] = useState({ name: "" })
@@ -32,6 +33,7 @@ const DomainAdd = ({ setApiSuccess, apiSuccess, setAddDomain }) => {
                 url: data.url,
                 companyId: user?.company?.id
             }).then((res) => {
+                console.log(res.data.data)
                 let domain = res.data.data
                 toast.success(`${domain.url} created successfully`)
                 axios

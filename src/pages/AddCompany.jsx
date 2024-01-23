@@ -23,7 +23,7 @@ const AddCompany = () => {
                 <div className='py-10 flex flex-col items-center text-5xl'>
                     <Logo />
                 </div>
-                {!(user?.company?.name === 'null') ? <CloudDirectoryList /> : <AddCompanyForm apiSuccess={apiSuccess} setApiSuccess={setApiSuccess} />
+                {!(user?.company?.name === null) ? <CloudDirectoryList /> : <AddCompanyForm apiSuccess={apiSuccess} setApiSuccess={setApiSuccess} />
                 }
             </div>
         </>
