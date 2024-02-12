@@ -62,7 +62,7 @@ const DisplayDomains = () => {
     <>
       <div className='px-6 pb-5 flex flex-col gap-4'>
         <div className='flex justify-between'>
-          <h2 className='lg:text-lg text-gray-800 font-bold'>Your Domains:</h2>
+          <h2 className='lg:text-lg  text-gray-800 font-bold'>Your Domains:</h2>
           {addDomain ? null : <Button color="warning" variant='contained' onClick={handleAddDomainClick}>Add New Domain</Button>}
         </div>
         <div className='flex flex-wrap gap-3 w-full'>

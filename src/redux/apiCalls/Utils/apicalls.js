@@ -1,6 +1,7 @@
 import axios from "axios"
 import { SERVER } from "../../../config/api"
 import { getUtils } from "../../slices/utilsSlice"
+import { toast } from 'react-toastify'
 
 export const getUtilsData = async (dispatch,name) => {
     try {
