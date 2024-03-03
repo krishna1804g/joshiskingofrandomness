@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 import { getUtilsData } from './redux/apiCalls/Utils/apicalls'
 import { toast } from 'react-toastify'
+import ValidateUser from './pages/ValidateUser'
 
 function App() {
   const utils = useSelector((state) => state.utils)
@@ -56,11 +57,13 @@ function App() {
     <>
       <Routes>
         <Route path='/Auth' index element={<SignIn />} />
-        {utils?.utils?.toggle && <Route path='/signup' element={<SignUp />} />}
+        {/* {utils?.utils?.toggle && <Route path='/signup' element={<SignUp />} />} */}
+        <Route path='/signup' element={<SignUp />} />
         <Route path='/*' index element={<NoPage />} />
         <Route path='/add-company' index element={<AddCompany />} />
         <Route path='/' element={<AfterLoginLayout />}>
           <Route path='/dashboard' index element={<Dashboard />} />
+          <Route path='/validateUser' index element={<ValidateUser />} />
           <Route path='/logs' index element={<Logs />} />
           <Route path='/domains' index element={<ActiveDirectory />} />
           <Route path='/profile' index element={<Profile />} />
