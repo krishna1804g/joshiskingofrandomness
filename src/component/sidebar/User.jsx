@@ -238,7 +238,43 @@ export default function User({ open, setOpen }) {
                                 </ListItemButton>
                             </ListItem>
                         </Link>
+                        <Link to="/validateUser">
+                            <ListItem disablePadding sx={{ display: 'block', }} onClick={()=>setOpen(false)}>
+                                <ListItemButton
+                                    sx={{
+                                        minHeight: 48,
+                                        justifyContent: open ? 'initial' : 'center',
+                                        borderRadius: "15px",
+                                        px: 2.5,
+                                        backgroundColor: currentLocation?.includes('/validateUser') && "rgb(254 243 199)",
+                                        color: currentLocation?.includes('/validateUser') && "#000",
+                                    }}
+                                >
+                                    {open ? <ListItemIcon
+                                        sx={{
+                                            minWidth: 0,
+                                            mr: open ? 3 : 'auto',
+                                            justifyContent: 'center',
 
+                                        }}
+                                    >
+                                        <DashboardIcon size={'23px'} sx={{ color: "gray" }} />
+                                    </ListItemIcon> : <Tooltip title={"validateUser"} placement='right'>
+                                        <ListItemIcon
+                                            sx={{
+                                                minWidth: 0,
+                                                mr: open ? 3 : 'auto',
+                                                justifyContent: 'center',
+                                            }}
+                                            
+                                        >
+                                            <DashboardIcon size={'23px'} sx={{ color: "gray" }} />
+                                        </ListItemIcon>
+                                    </Tooltip>}
+                                    <ListItemText primary={"validateUser"} sx={{ opacity: open ? 1 : 0, color: "gray" }} />
+                                </ListItemButton>
+                            </ListItem>
+                        </Link>
                     </List>
                     <List sx={{ backgroundColor: "white" }}>
                         <ListItem disablePadding sx={{ display: 'block' }}>
